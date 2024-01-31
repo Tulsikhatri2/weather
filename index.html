@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEATHER</title>
+  <link rel="stylesheet" href="style.css">
+  
+ <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body class="body">
+<div class="search-container">
+    <input type="text" name="search" placeholder="Search..." class="search-input" id="cityName">
+    <div id="temp">
+      <i class="fas fa-search" ></i>      
+  </div>
+</div>
+<div class="outPut" id="result">
+  <div class="row description" style="margin-left: 20px;padding-left: 10px;">
+    <div class="col-2" style="background-image: url(map.png); background-size: 50px 50px;background-repeat: no-repeat;margin-top: 15px;"></div>
+    <div class="col-10" id="result1" style="padding-right: 20px;padding-top: 20px;"></div>
+  </div>
+  <div class="row description" style="margin-left: 20px;padding-left: 10px;" >
+    <div class="col-2" style="background-image: url(temperature.png); background-size: 64px 64px;background-repeat: no-repeat;margin-top: 8px;"></div>
+    <div class="col-10" id="result2" style="padding-right: 20px;padding-top: 20px;"></div>
+  </div>
+  <div class="row description" style="margin-left: 20px;padding-left: 10px;">
+    <!-- <b><div class="description" id="result2"></div></b> -->
+    <div class="col-2" style="background-image: url(humidity.png); background-size: 64px 64px;background-repeat: no-repeat;margin-top: 8px;"></div>
+    <div class="col-10" id="result3" style="padding-right: 20px;padding-top: 20px;"></div>
+  </div>
+  <div class="row description" style="margin-left: 20px;padding-left: 10px;">
+    <div class="col-2" style="background-image: url(wind.png); background-size: 50px 50px;background-repeat: no-repeat;margin-top: 20px;"></div>
+    <div class="col-10" id="result4" style="padding-right: 20px;padding-top: 20px;"></div>
+  </div>
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+      function hides(){
+        $("#result").hide();
+      }
+      hides();
+      $("#temp").click(function(){
+        $("#result").slideDown();
+        $.get(`https://api.openweathermap.org/data/2.5/weather?q=${$("#cityName").val()}&appid=06f9dfc835752a34754b7aeaece84cfc&units=metric`, function (data, status) {
+      console.log(data.weather[0].description);
+      console.log(status);
+      var city=$('#cityName').val()
+      $("#result1").html(`<b>${city}</b>`);
+      $("#result2").html(`<b>${data.main.temp}°C</b>`);
+      $("#result3").html(`<b>${data.main.humidity}</b>`);
+      $("#result4").html(`<b>${data.wind.speed} km/h</b>`)
+      })
+    })
+  })
+  </script>
+</body>
+</html>
+
+    
+    
